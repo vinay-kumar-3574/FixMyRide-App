@@ -7,7 +7,7 @@ const passport = require("passport");
 const session = require("express-session");
 require("./config/passport"); // Import Passport config
 const userRoutes = require("./routes/userRoutes");
-
+const MongoStore = require('connect-mongo');
 
 const authRoutes = require("./routes/auth");  
 const protectedRoutes = require("./routes/protected");
@@ -19,20 +19,56 @@ const assistanceRoutes = require("./routes/assistanceRoutes");
 const app = express();
 
 // ✅ CORS: Allow frontend to communicate with backend
-const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
-app.use(cors({ origin: CLIENT_URL, credentials: true }));
+const CLIENT_URL = process.env.CLIENT_URL || "https://fixmyride-frontend.onrender.com";
+app.use(cors({ 
+  origin: CLIENT_URL, 
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // ✅ Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(session({ 
-  secret: process.env.SESSION_SECRET, 
-  resave: false, 
-  saveUninitialized: false
-}));
+
+// ✅ Session Store Configuration
+const store = MongoStore.create({
+  mongoUrl: process.env.MONGO_URI,
+  collectionName: 'sessions',
+  ttl: 24 * 60 * 60,
+  crypto: {
+    secret: process.env.SESSION_SECRET
+  }
+});
+
+// Handle store errors
+store.on('error', function(error) {
+  console.error('❌ Session Store Error:', error);
+});
+
+// ✅ Session Configuration
+const sessionOptions = {
+  store,
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: true, // Enable for HTTPS
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000,
+    sameSite: 'none' // Required for cross-site requests
+  },
+  name: 'sessionId',
+  rolling: true,
+  unset: 'destroy',
+  proxy: true
+};
+
+app.use(session(sessionOptions));
+
+// ✅ Passport Configuration
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 // ✅ Routes
 app.use("/auth", authRoutes);
@@ -52,10 +88,30 @@ app.post("/api/location", async (req, res) => {
   }
 });
 
+
 // ✅ Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB Connected"))
-  .catch(err => console.error("❌ MongoDB Connection Error:", err));
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 15000, // Increase timeout to 15 seconds
+  socketTimeoutMS: 45000, // Socket timeout
+})
+.then(() => {
+  console.log("✅ MongoDB Connected Successfully");
+})
+.catch(err => {
+  console.error("❌ MongoDB Connection Error:", err);
+  process.exit(1); // Exit the process if MongoDB connection fails
+});
+
+// Handle MongoDB connection errors after initial connection
+mongoose.connection.on('error', err => {
+  console.error('❌ MongoDB Connection Error:', err);
+});
+
+mongoose.connection.on('disconnected', () => {
+  console.log('⚠️ MongoDB Disconnected');
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

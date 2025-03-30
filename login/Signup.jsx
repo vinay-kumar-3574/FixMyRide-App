@@ -110,9 +110,10 @@ export default function SignUpForm() {
           console.log("📥 Server response:", data);
   
           if (response.ok) {
-              localStorage.setItem("userEmail", email);  // ✅ Store email after signup
-              console.log("✅ Stored Email in localStorage:", localStorage.getItem("userEmail")); // ✅ Debugging log
-              navigate("/onboarding");  // ✅ Redirect to onboarding
+              localStorage.setItem("userEmail", email);
+              localStorage.setItem("token", data.token); // Store the token
+              console.log("✅ Stored Email and Token:", localStorage.getItem("userEmail"), localStorage.getItem("token")); // Debugging log
+              navigate("/onboarding");  // Redirect to onboarding
           } else {
               alert(data.message || "Signup failed. Please try again.");
           }
