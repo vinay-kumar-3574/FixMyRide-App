@@ -7,14 +7,14 @@ services:
       pwd
       echo "Directory contents:"
       ls
-      echo "Installing dependencies..."
+      echo "Installing root dependencies..."
       npm install
-      echo "Installing Vite and related packages..."
-      npm install -D vite@latest @vitejs/plugin-react autoprefixer postcss tailwindcss
       echo "Building frontend..."
+      cd dashboard1/velocihelp-center-main
+      npm install
       npm run build
       echo "Installing backend dependencies..."
-      cd backend
+      cd ../../backend
       npm install
     startCommand: node backend/server.js
     envVars:
