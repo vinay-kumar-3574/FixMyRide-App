@@ -5,9 +5,10 @@ services:
     buildCommand: |
       pwd
       ls
-      npm install -g vite
       npm install
-      npm install -D vite @vitejs/plugin-react autoprefixer postcss tailwindcss
+      npm install -D vite@latest @vitejs/plugin-react autoprefixer postcss tailwindcss
+      npm install -g vite
+      export PATH=$PATH:$(npm config get prefix)/bin
       npx vite build
       cd backend
       npm install
