@@ -5,13 +5,10 @@ services:
     buildCommand: |
       pwd
       ls
-      cd dashboard1/velocihelp-center-main
-      pwd
-      ls
       npm install
       npm install -D vite @vitejs/plugin-react autoprefixer postcss tailwindcss
       npm run build
-      cd ../../backend
+      cd backend
       npm install
     startCommand: node backend/server.js
     envVars:
