@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: fixmyride-app
+    env: node
+    buildCommand: |
+      npm install
+      npm run build
+    startCommand: node backend/server.js
+    envVars:
+      - key: MONGO_URI
+        sync: false
+      - key: SESSION_SECRET
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: CLIENT_URL
+        value: https://fixmyride-app.onrender.com
+      - key: NODE_ENV
+        value: production 

@@ -5,6 +5,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const session = require("express-session");
+const path = require('path');
 require("./config/passport"); // Import Passport config
 const userRoutes = require("./routes/userRoutes");
 const MongoStore = require('connect-mongo');
@@ -19,7 +20,7 @@ const assistanceRoutes = require("./routes/assistanceRoutes");
 const app = express();
 
 // ✅ CORS: Allow frontend to communicate with backend
-const CLIENT_URL = process.env.CLIENT_URL || "https://fixmyride-frontend.onrender.com";
+const CLIENT_URL = process.env.CLIENT_URL || "https://fixmyride-app.onrender.com";
 app.use(cors({ 
   origin: CLIENT_URL, 
   credentials: true,
@@ -70,7 +71,7 @@ app.use(session(sessionOptions));
 app.use(passport.initialize());
 app.use(passport.session());
 
-// ✅ Routes
+// ✅ API Routes
 app.use("/auth", authRoutes);
 app.use("/protected", protectedRoutes);
 app.use("/onboarding", onboardingRoutes);
@@ -88,20 +89,27 @@ app.post("/api/location", async (req, res) => {
   }
 });
 
+// ✅ Serve static files from the frontend build directory
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+// ✅ Handle React routing, return all requests to React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+});
 
 // ✅ Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 15000, // Increase timeout to 15 seconds
-  socketTimeoutMS: 45000, // Socket timeout
+  serverSelectionTimeoutMS: 15000,
+  socketTimeoutMS: 45000,
 })
 .then(() => {
   console.log("✅ MongoDB Connected Successfully");
 })
 .catch(err => {
   console.error("❌ MongoDB Connection Error:", err);
-  process.exit(1); // Exit the process if MongoDB connection fails
+  process.exit(1);
 });
 
 // Handle MongoDB connection errors after initial connection
