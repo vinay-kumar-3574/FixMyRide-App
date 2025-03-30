@@ -3,13 +3,17 @@ services:
     name: fixmyride-app
     env: node
     buildCommand: |
+      echo "Current directory:"
       pwd
+      echo "Directory contents:"
       ls
+      echo "Installing dependencies..."
       npm install
+      echo "Installing Vite and related packages..."
       npm install -D vite@latest @vitejs/plugin-react autoprefixer postcss tailwindcss
-      npm install -g vite
-      export PATH=$PATH:$(npm config get prefix)/bin
-      npx vite build
+      echo "Building frontend..."
+      npm run build
+      echo "Installing backend dependencies..."
       cd backend
       npm install
     startCommand: node backend/server.js
