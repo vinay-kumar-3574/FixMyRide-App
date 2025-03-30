@@ -3,8 +3,16 @@ services:
     name: fixmyride-app
     env: node
     buildCommand: |
-      cd dashboard1/velocihelp-center-main && npm install && npm install -D vite @vitejs/plugin-react autoprefixer postcss tailwindcss && npm run build
-      cd ../../backend && npm install
+      pwd
+      ls
+      cd dashboard1/velocihelp-center-main
+      pwd
+      ls
+      npm install
+      npm install -D vite @vitejs/plugin-react autoprefixer postcss tailwindcss
+      npm run build
+      cd ../../backend
+      npm install
     startCommand: node backend/server.js
     envVars:
       - key: MONGO_URI
