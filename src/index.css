@@ -1,0 +1,174 @@
+@import url('https://rsms.me/inter/inter.css');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 152 55% 12%;
+    --primary-foreground: 152 55% 98%;
+    --secondary: 152 75% 52%;
+    --secondary-foreground: 152 75% 98%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 152 75% 52%;
+    --accent-foreground: 152 75% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 152 75% 52%;
+    --radius: 0.5rem;
+  }
+
+  body {
+    @apply bg-forest text-white antialiased;
+    background-image: radial-gradient(circle at 50% 0%, rgba(100, 255, 218, 0.05), transparent 70%);
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+  }
+  .signin-container {
+    background-image: radial-gradient(circle at 50% 0%, rgba(100, 255, 218, 0.05), transparent 70%) !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .leaflet-container {
+    height: 100vh; /* Adjust height as needed */
+    width: 100%;
+  }
+  
+
+  ::selection {
+    @apply bg-mint text-forest;
+  }
+}
+/* Dark Mode Support */
+.dark-mode {
+  background-color: #0A1F2F !important;
+  color: white !important;
+}
+
+/* Apply Light Mode */
+.light-mode {
+  background-color: white !important;
+  color: black !important;
+}
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+.glass-nav {
+  background: rgba(10, 31, 47, 0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+}
+
+/* Add these styles */
+.dashboard-mode {
+  background-color: hsl(var(--background));
+  min-height: 100vh;
+  color: hsl(var(--foreground));
+}
+
+/* If you're using the main navbar component, add this */
+.dashboard-mode .main-navbar {
+  display: none;
+}
+
+/* Add these styles */
+body.in-dashboard .main-navbar,
+body.in-dashboard .main-footer {
+  display: none;
+}
+
+body.in-dashboard {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+/* Hide main app's navbar and footer when in dashboard routes */
+body[data-route="dashboard"] .main-navbar,
+body[data-route="dashboard"] .main-footer {
+  display: none !important;
+}
+
+/* Main app styles */
+.main-app-layout {
+  min-height: 100vh;
+  background-color: white;
+  color: black;
+}
+
+/* Dashboard specific styles */
+.dashboard-wrapper {
+  min-height: 100vh;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+/* CSS Variables for dashboard theme */
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --primary: 221.2 83.2% 53.3%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96.1%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 221.2 83.2% 53.3%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 217.2 91.2% 59.8%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 224.3 76.3% 48%;
+}
+
+/* Ensure proper text contrast in dashboard */
+.dashboard-wrapper {
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+.dashboard-wrapper * {
+  color: inherit;
+}

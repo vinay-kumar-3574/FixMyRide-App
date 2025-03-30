@@ -1,0 +1,376 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base text colors */
+body {
+  color: #000000 !important;
+  background-color: #ffffff;
+}
+
+/* Button Styles */
+.btn,
+button {
+  @apply px-4 py-2 rounded-md font-medium transition-all duration-200 flex items-center gap-2;
+}
+
+/* Primary Button */
+.btn-primary {
+  @apply bg-blue-600 text-white hover:bg-blue-700 !important;
+}
+
+/* Secondary Button */
+.btn-secondary {
+  @apply bg-gray-200 text-gray-800 hover:bg-gray-300 !important;
+}
+
+/* Profile Button */
+.profile-btn {
+  @apply bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 flex items-center gap-2 !important;
+}
+
+/* Get Assistance Button */
+.assistance-btn {
+  @apply bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 flex items-center gap-2 !important;
+}
+
+/* Upload Documents Button */
+.upload-btn {
+  @apply bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 flex items-center gap-2 !important;
+}
+
+/* Icon Button */
+.icon-btn {
+  @apply p-2 rounded-full hover:bg-gray-100 transition-colors !important;
+}
+@layer utilities {
+  /* 🔹 Expand underline effect */
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background: currentColor;
+    transition: width 0.3s ease, left 0.3s ease;
+  }
+
+  .link-underline:hover::after {
+    width: 100%;
+    left: 0;
+  }
+
+  /* 🔹 Navbar slide-in animation */
+  @keyframes slideInDown {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-slide-in-down {
+    animation: slideInDown 0.5s ease-out;
+  }
+}
+
+
+/* Text colors for different elements */
+h1, h2, h3, h4, h5, h6 {
+  @apply text-black font-semibold !important;
+}
+
+p, span, div {
+  @apply text-black !important;
+}
+
+/* Link styles */
+a {
+  @apply text-blue-600 hover:text-blue-800 !important;
+}
+
+/* Card styles */
+.card {
+  @apply bg-white rounded-lg shadow-sm p-4 !important;
+}
+
+/* Form input styles */
+input, textarea, select {
+  @apply border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 !important;
+}
+
+/* Navigation item styles */
+.nav-item {
+  @apply text-gray-700 hover:text-gray-900 !important;
+}
+
+/* Active navigation item */
+.nav-item.active {
+  @apply text-blue-600 font-medium !important;
+}
+
+/* Hover effects */
+.hover-effect {
+  @apply transition-all duration-200 hover:scale-105 !important;
+}
+
+/* Animation for buttons */
+.btn:active {
+  @apply transform scale-95 !important;
+}
+
+/* Dashboard specific styles */
+.dashboard-text {
+  @apply text-black !important;
+}
+
+.dashboard-heading {
+  @apply text-black font-bold !important;
+}
+
+.dashboard-card {
+  @apply bg-white rounded-lg shadow-sm p-4 !important;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222.2 84% 4.9%;
+    --sidebar-primary: 221.2 83% 53.9%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 210 40% 96.1%;
+    --sidebar-accent-foreground: 222.2 47.4% 11.2%;
+    --sidebar-border: 214.3 31.8% 85%;
+    --sidebar-ring: 221.2 83% 53.9%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+
+    --sidebar-background: 222.2 47.4% 11.2%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 217.2 91.2% 59.8%;
+    --sidebar-primary-foreground: 222.2 47.4% 11.2%;
+    --sidebar-accent: 217.2 32.6% 17.5%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217.2 32.6% 17.5%;
+    --sidebar-ring: 224.3 76.3% 48%;
+  }
+}
+.leaflet-container {
+  height: 100vh; /* Adjust height as needed */
+  width: 100%;
+}
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-black dark:text-white;
+  }
+  
+  /* Light mode specific styles */
+  :root {
+    body {
+      @apply bg-gray-100;
+    }
+    
+    /* Card backgrounds in light mode */
+    .card, 
+    .container,
+    .bg-card {
+      @apply bg-white shadow-sm;
+    }
+
+    /* Text in light mode */
+    h1, h2, h3, h4, h5, h6 {
+      @apply text-gray-900;
+    }
+
+    p, span, div {
+      @apply text-gray-700;
+    }
+
+    /* Navigation in light mode */
+    .nav-item {
+      @apply text-gray-700 hover:text-gray-900;
+    }
+  }
+
+  /* Dark mode specific styles */
+  .dark {
+    body {
+      @apply bg-gray-900;
+    }
+
+    .card,
+    .container,
+    .bg-card {
+      @apply bg-gray-800;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      @apply text-white;
+    }
+
+    p, span, div {
+      @apply text-gray-200;
+    }
+
+    .nav-item {
+      @apply text-gray-200 hover:text-white;
+    }
+  }
+}
+
+/* Force black text in light mode for all text elements */
+:root {
+  h1, h2, h3, h4, h5, h6, p, span, div, button, a {
+    @apply text-black;
+  }
+}
+
+/* Preserve dark mode text colors */
+.dark {
+  h1, h2, h3, h4, h5, h6, p, span, div, button, a {
+    @apply text-white;
+  }
+}
+
+/* Additional utility classes */
+.bg-content {
+  @apply bg-white dark:bg-gray-800;
+}
+
+.text-content {
+  @apply text-gray-900 dark:text-white;
+}
+
+.text-content-muted {
+  @apply text-gray-700 dark:text-gray-300;
+}
+
+/* Card and container backgrounds */
+.card, 
+.container {
+  @apply bg-white dark:bg-gray-800;
+}
+
+/* Navigation items */
+.nav-item {
+  @apply text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white;
+}
+
+/* Button text */
+.btn {
+  @apply text-gray-700 dark:text-gray-200;
+}
+
+/* Links */
+a {
+  @apply text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300;
+}
+
+/* Additional utility classes */
+.text-primary {
+  @apply text-black dark:text-white !important;
+}
+
+.text-secondary {
+  @apply text-black dark:text-gray-200 !important;
+}
+
+.text-muted {
+  @apply text-gray-700 dark:text-gray-400 !important;
+}
+
+/* Sidebar styles */
+.sidebar {
+  @apply fixed left-0 top-[64px] h-[calc(100vh-64px)] bg-white shadow-md z-30 !important;
+}
+
+/* Sidebar link styles */
+.sidebar-link {
+  @apply flex items-center gap-4 p-3 rounded-lg mb-2 text-gray-700 hover:bg-gray-50 transition-all duration-200 !important;
+}
+
+.sidebar-link.active {
+  @apply bg-blue-50 text-blue-600 !important;
+}
+
+/* Sidebar icon styles */
+.sidebar-icon {
+  @apply flex-shrink-0 !important;
+}
+
+/* Sidebar text styles */
+.sidebar-text {
+  @apply font-medium !important;
+}
+
+/* Main content adjustment for sidebar */
+.main-content {
+  @apply ml-64 transition-all duration-300 !important;
+}
+
+.main-content.collapsed {
+  @apply ml-20 !important;
+}
+
+/* Ensure sidebar is above other content */
+.z-sidebar {
+  @apply z-30 !important;
+}
+
+/* Transition styles */
+.sidebar-transition {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+/* Content shift styles */
+.content-shift {
+  @apply transition-all duration-300 ease-in-out;
+}
