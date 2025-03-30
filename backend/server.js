@@ -90,11 +90,11 @@ app.post("/api/location", async (req, res) => {
 });
 
 // ✅ Serve static files from the frontend build directory
-app.use(express.static(path.join(__dirname, '../src/dashboard1/velocihelp-center-main/dist')));
+app.use(express.static(path.join(__dirname, '../dist')));
 
 // ✅ Handle React routing, return all requests to React app
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../src/dashboard1/velocihelp-center-main/dist/index.html'));
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
 // ✅ Connect to MongoDB
